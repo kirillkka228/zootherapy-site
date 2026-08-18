@@ -1,0 +1,223 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #faf9f6;
+    color: #333333; 
+}
+
+/* Шапка сайту (Верхня панель) */
+header {
+    background-color: #2e6f40;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5rem;
+}
+
+/* Навігаційне меню */
+nav {
+    margin-top: 15px;
+}
+
+nav a {
+    color: #ffd1a9; 
+    text-decoration: none;
+    font-weight: bold;
+    margin: 0 15px;
+    transition: color 0.3s;
+}
+
+/* Ефект при наведенні мишкою на посилання */
+nav a:hover {
+    color: #ff9233; 
+}
+
+/* Головний контент сторінки */
+main {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+main h2 {
+    color: #2e6f40;
+    border-bottom: 2px solid #ff9233;
+    padding-bottom: 10px;
+}
+
+main p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+/* Низ сторінки */
+footer {
+    background-color: #222222;
+    color: #aaaaaa;
+    text-align: center;
+    padding: 15px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    font-size: 0.9rem;
+}
+main ul {
+    padding-left: 20px;
+    margin-bottom: 25px;
+}
+
+main li {
+    margin-bottom: 12px;
+    font-size: 1.05rem;
+    line-height: 1.5;
+}
+.clinics-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 25px;
+}
+
+/* Стиль самої картки */
+.clinic-card {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 20px;
+    position: relative;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+/* Ефект при наведенні на картку */
+.clinic-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.clinic-card h3 {
+    color: #2e6f40; /* Теплий зелений */
+    margin-top: 30px; /* Місце для бейджика зверху */
+    margin-bottom: 10px;
+    font-size: 1.3rem;
+}
+
+.clinic-card p {
+    font-size: 0.95rem;
+    margin: 6px 0;
+}
+
+.clinic-desc {
+    color: #555555;
+    margin-top: 12px !important;
+    line-height: 1.4;
+}
+
+/* Кольорові бейджики типів терапії */
+.clinic-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: white;
+}
+
+.c-dog {
+    background-color: #ff9233; /* Помаранчевий для собак */
+}
+
+.c-horse {
+    background-color: #2e6f40; /* Зелений для коней */
+}
+
+/* Кнопка зв'язку */
+.btn-contact {
+    display: inline-block;
+    margin-top: 15px;
+    background-color: #ff9233; /* Помаранчевий */
+    color: white;
+    text-decoration: none;
+    padding: 8px 15px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    text-align: center;
+    transition: background-color 0.2s;
+}
+
+.btn-contact:hover {
+    background-color: #e07b24; /* Темніший помаранчевий при наведенні */
+}
+
+/* Додатковий підзаголовок сторінки */
+.subtitle {
+    color: #666666;
+    font-style: italic;
+    margin-bottom: 20px;
+}
+.custom-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 600px;
+    margin: 20px 0;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.form-group label {
+    font-weight: bold;
+    color: #2e6f40;
+}
+
+.form-group input, .form-group select, .form-group textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+}
+
+.btn-submit {
+    background-color: #2e6f40;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.btn-submit:hover {
+    background-color: #235430;
+}
+
+.add-clinic-block {
+    background: #f0f7f2;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+    border: 1px solid #c2e0c9;
+}
+
+.add-clinic-block summary {
+    font-weight: bold;
+    cursor: pointer;
+    color: #2e6f40;
+}
