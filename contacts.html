@@ -1,83 +1,141 @@
+<!DOCTYPE html>
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Контакти — Зоотерапія</title>
+    <title>Оголошення та допомога — Зоотерапія</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
     <header>
-        <h1>Зоотерапія & Тварини</h1>
         <nav>
-            <a href="index.html">Головна</a> | 
-            <a href="clinics.html">Каталог клінік</a> | 
-            <a href="events.html">Заходи</a> | 
-            <a href="contacts.html">Контакти</a>
+            <div class="logo">Зоотерапія Дніпро</div>
+            <ul>
+                <li><a href="index.html">Головна</a></li>
+                <li><a href="clinics.html">Клініки</a></li>
+                <li><a href="events.html">Заходи</a></li>
+                <li><a href="contacts.html" class="active">Оголошення та допомога</a></li>
+            </ul>
         </nav>
     </header>
 
-    <main>
-        <h2>Зворотний зв'язок</h2>
-        <p class="subtitle">Маєте запитання або хочете запропонувати співпрацю? Напишіть нам!</p>
+    <main class="container">
+        <section class="form-section">
+            <h2>Подати оголошення</h2>
+            <p>Загубили улюбленця, знайшли тварину чи шукаєте їй домівку у Дніпрі та області? Заповніть форму нижче:</p>
+            
+            <form id="announcementForm">
+                <div class="form-group">
+                    <label for="title">Заголовок оголошення:</label>
+                    <input type="text" id="title" required placeholder="напр., Загубився собака (Бігль)">
+                </div>
 
-        <form id="contactForm" class="custom-form">
-            <details class="add-clinic-block">
-            <summary>➕ Додати нову клініку в каталог</summary>
-            <form id="addClinicForm" class="custom-form">
                 <div class="form-group">
-                    <label>Назва закладу:</label>
-                    <input type="text" id="cl-name" required>
-                </div>
-                <div class="form-group">
-                    <label>Місто:</label>
-                    <input type="text" id="cl-city" required>
-                </div>
-                <div class="form-group">
-                    <label>Адреса:</label>
-                    <input type="text" id="cl-address" required>
-                </div>
-                <div class="form-group">
-                    <label>Телефон:</label>
-                    <input type="text" id="cl-phone" placeholder="+380...">
-                </div>
-                <div class="form-group">
-                    <label>Вид зоотерапії:</label>
-                    <select id="cl-type">
-                        <option value="Каністерапія">Каністерапія</option>
-                        <option value="Іпотерапія">Іпотерапія</option>
-                        <option value="Фелінотерапія">Фелінотерапія</option>
-                        <option value="Комплексна зоотерапія">Комплексна зоотерапія</option>
+                    <label for="category">Категорія оголошення:</label>
+                    <select id="category" required>
+                        <option value="Загублено">Загублено тварину</option>
+                        <option value="Знайдено">Знайдено тварину</option>
+                        <option value="Шукає домівку">Шукає домівку / Прилаштування</option>
+                        <option value="Потрібна допомога">Потрібна допомога / Перетримування</option>
                     </select>
                 </div>
+
                 <div class="form-group">
-                    <label>Опис:</label>
-                    <textarea id="cl-desc" rows="3"></textarea>
+                    <label for="district">Місто / Район Дніпра:</label>
+                    <input type="text" id="district" required placeholder="напр., м. Дніпро, Соборний район">
                 </div>
-                <button type="submit" class="btn-submit">Зберегти в базу</button>
+
+                <div class="form-group">
+                    <label for="phone">Номер телефону для зв'язку:</label>
+                    <input type="tel" id="phone" required placeholder="+380XXXXXXXXX">
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Детальний опис:</label>
+                    <textarea id="description" rows="4" required placeholder="Опишіть зовнішність, особливі прикмети, наявність нашийника, умови тощо..."></textarea>
+                </div>
+
+                <button type="submit" class="btn">Опублікувати оголошення</button>
             </form>
-        </details>
-            <div class="form-group">
-                <label for="c-name">Ваше ім'я:</label>
-                <input type="text" id="c-name" required placeholder="Олександр">
+            <div id="formStatus"></div>
+        </section>
+
+        <section class="announcements-section">
+            <h2>Актуальні оголошення Дніпропетровщини</h2>
+            <div id="announcementsList" class="cards-grid">
             </div>
-            <div class="form-group">
-                <label for="c-email">Ваш Email:</label>
-                <input type="email" id="c-email" required placeholder="example@email.com">
-            </div>
-            <div class="form-group">
-                <label for="c-message">Повідомлення:</label>
-                <textarea id="c-message" rows="4" required placeholder="Текст вашого повідомлення..."></textarea>
-            </div>
-            <button type="submit" class="btn-submit">Надіслати</button>
-            <p id="formResponse" class="form-status"></p>
-        </form>
+        </section>
     </main>
-    <script src="script.js"></script>
 
-    <footer>
-        <p>&copy; 2026 Випускна робота. Всі права захищені.</p>
-    </footer>
+    <script>
+        async function loadAnnouncements() {
+            try {
+                const response = await fetch('/api/announcements');
+                const announcements = await response.json();
+                const container = document.getElementById('announcementsList');
+                container.innerHTML = '';
 
+                if (announcements.length === 0) {
+                    container.innerHTML = '<p>Наразі немає активних оголошень.</p>';
+                    return;
+                }
+
+                announcements.forEach(item => {
+                    const card = document.createElement('div');
+                    card.className = 'card announcement-card';
+                    card.innerHTML = `
+                        <span class="badge ${getBadgeClass(item.category)}">${item.category}</span>
+                        <h3>${item.title}</h3>
+                        <p><strong>Локація:</strong> ${item.district}</p>
+                        <p><strong>Контакт:</strong> <a href="tel:${item.phone}">${item.phone}</a></p>
+                        <p>${item.description}</p>
+                    `;
+                    container.appendChild(card);
+                });
+            } catch (err) {
+                console.error('Помилка завантаження оголошень:', err);
+            }
+        }
+
+        function getBadgeClass(category) {
+            if (category === 'Загублено') return 'badge-danger';
+            if (category === 'Знайдено') return 'badge-warning';
+            return 'badge-info';
+        }
+
+        document.getElementById('announcementForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const statusDiv = document.getElementById('formStatus');
+
+            const data = {
+                title: document.getElementById('title').value,
+                category: document.getElementById('category').value,
+                district: document.getElementById('district').value,
+                phone: document.getElementById('phone').value,
+                description: document.getElementById('description').value
+            };
+
+            try {
+                const response = await fetch('/api/announcements', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+
+                if (response.ok) {
+                    statusDiv.innerHTML = '<p class="success-msg">Оголошення опубліковано!</p>';
+                    document.getElementById('announcementForm').reset();
+                    loadAnnouncements();
+                } else {
+                    statusDiv.innerHTML = '<p class="error-msg"> Помилка при публікації.</p>';
+                }
+            } catch (err) {
+                statusDiv.innerHTML = '<p class="error-msg">Помилка з"єднання з сервером.</p>';
+            }
+        });
+
+        // Завантажити оголошення при відкритті сторінки
+        loadAnnouncements();
+    </script>
 </body>
 </html>

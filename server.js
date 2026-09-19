@@ -34,13 +34,30 @@ app.get('/api/events', (req, res) => {
         res.json(rows);
     });
 });
-app.post('/api/contacts', (req, res) => {
-    const { name, email, message } = req.body;
-    const sql = `INSERT INTO messages (name, email, message) VALUES (?, ?, ?)`;
-    
-    db.run(sql, [name, email, message], function(err) {
-        if (err) return res.status(500).json({ error: err.message });
-        res.json({ message: 'Повідомлення успішно відправлено!' });
+
+app.get('/api/announcements', (req, res) => {
+    db.all('SELECT * FROM announcements ORDER BY id DESC', [], (err, rows) => {
+        if (err) {
+            return res.status(500).json({ error: err.message });
+        }
+        res.json(rows);
+    });
+});
+
+app.post('/api/announcements', (req, res) => {
+    const { title, category, district, phone, description } = req.body;
+    if (!title || !category || !district || !phone || !description) {
+        return res.status(400).json({ error: 'Будь ласка, заповніть усі поля' });
+    }
+
+    const sql = 'INSERT INTO announcements (title, category, district, phone, description) VALUES (?, ?, ?, ?, ?)';
+    const params = [title, category, district, phone, description];
+
+    db.run(sql, params, function (err) {
+        if (err) {
+            return res.status(500).json({ error: err.message });
+        }
+        res.json({ id: this.lastID, message: 'Оголошення успішно додано!' });
     });
 });
 

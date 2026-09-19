@@ -1,11 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
     
-    // --- 1. ЗАВАНТАЖЕННЯ КЛІНІК ---
     const clinicsContainer = document.querySelector('.clinics-container');
     if (clinicsContainer) {
         loadClinics();
 
-        // Форма додавання нової клініки
         const addClinicForm = document.getElementById('addClinicForm');
         if (addClinicForm) {
             addClinicForm.addEventListener('submit', (e) => {
@@ -28,7 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 .then(data => {
                     alert(data.message);
                     addClinicForm.reset();
-                    loadClinics(); // Оновлюємо каталог на сторінці
+                    loadClinics();
                 });
             });
         }
@@ -70,7 +68,6 @@ document.addEventListener("DOMContentLoaded", () => {
             });
     }
 
-    // --- 2. ЗАВАНТАЖЕННЯ ЗАХОДІВ ---
     const eventsContainer = document.querySelector('.events-container');
     if (eventsContainer) {
         fetch('/api/events')
@@ -93,7 +90,6 @@ document.addEventListener("DOMContentLoaded", () => {
             });
     }
 
-    // --- 3. ФОРМА КОНТАКТІВ ---
     const contactForm = document.getElementById('contactForm');
     if (contactForm) {
         contactForm.addEventListener('submit', (e) => {
