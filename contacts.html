@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Оголошення та допомога — Зоотерапія Дніпро</title>
+    <title>Оголошення та допомога - Зоотерапія Дніпро</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Стилі для карток оголошень */
         .announcements-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
+            gap: 40px;
             margin-top: 20px;
         }
 
@@ -74,7 +73,6 @@
             background-color: #e07b00;
         }
 
-        /* Стилі для шапки сайту */
         header nav ul {
             list-style: none;
             padding: 0;
@@ -98,15 +96,13 @@
 <body>
 
     <header>
-        <h1>Зоотерапія & Тварини</h1>
-        <nav>
-            <ul>
-                <li><a href="index.html">Головна</a></li>
-                <li><a href="clinics.html">Каталог клінік</a></li>
-                <li><a href="events.html">Заходи</a></li>
-                <li><a href="contacts.html">Оголошення та допомога</a></li>
-            </ul>
-        </nav>
+        <h1>Зоотерапія & Допомога</h1>
+            <nav>
+                <a href="index.html">Головна</a> | 
+                <a href="clinics.html">Каталог клінік</a> | 
+                <a href="events.html">Заходи</a> | 
+                <a href="contacts.html">Оголошення та допомога</a>
+            </nav>
     </header>
 
     <main class="container">
@@ -163,7 +159,6 @@
     </footer>
 
     <script>
-        // Завантаження оголошень
         async function loadAnnouncements() {
             try {
                 const response = await fetch('/api/announcements');
@@ -196,7 +191,6 @@
             }
         }
 
-        // Відправка форми
         document.getElementById('announcementForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             
@@ -222,7 +216,7 @@
                     statusMsg.style.color = 'green';
                     statusMsg.textContent = 'Оголошення успішно опубліковано!';
                     document.getElementById('announcementForm').reset();
-                    loadAnnouncements(); // Оновлюємо список
+                    loadAnnouncements();
                 } else {
                     statusMsg.style.color = 'red';
                     statusMsg.textContent = result.error || 'Помилка при збереженні';
@@ -232,7 +226,6 @@
             }
         });
 
-        // Завантажити оголошення при відкритті сторінки
         loadAnnouncements();
     </script>
 </body>
